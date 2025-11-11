@@ -1,0 +1,9 @@
+.p4*
+.DS_Store
+.AppleDouble
+.build
+.vscode
+.swiftpm
+generated
+target
+.index-build

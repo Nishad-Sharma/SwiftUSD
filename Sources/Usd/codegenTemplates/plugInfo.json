@@ -1,0 +1,14 @@
+{
+  "Plugins": [
+    {
+      "Info": {
+        "Types": {}
+      },
+      "LibraryPath": "",
+      "Name": "{{ libraryName }}",
+      "ResourcePath": ".",
+      "Root": ".",
+      "Type": "library"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "Plugins": [
+    {
+      "Info": {
+        "Types": {
+          "HdTinyRendererPlugin": {
+            "bases": ["HdRendererPlugin"],
+            "displayName": "Tiny",
+            "priority": 99
+          }
+        }
+      },
+      "LibraryPath": "",
+      "Name": "HdTiny",
+      "ResourcePath": ".",
+      "Root": ".",
+      "Type": "library"
+    }
+  ]
+}

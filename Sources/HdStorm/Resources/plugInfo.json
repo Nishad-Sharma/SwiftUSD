@@ -1,0 +1,20 @@
+{
+  "Plugins": [
+    {
+      "Info": {
+        "Types": {
+          "HdStormRendererPlugin": {
+            "bases": ["HdRendererPlugin"],
+            "displayName": "GL",
+            "priority": 0
+          }
+        }
+      },
+      "LibraryPath": "",
+      "Name": "HdStorm",
+      "ResourcePath": ".",
+      "Root": ".",
+      "Type": "library"
+    }
+  ]
+}
