@@ -8,12 +8,12 @@
 #define PXR_IMAGING_HGIINTEROP_HGIINTEROPVULKAN_H
 
 #include "Arch/defines.h"
-
-// HgiInteropVulkan requires HgiVulkan which is only available on
-// platforms with Vulkan support (Linux, Windows). Exclude on macOS/iOS.
-#if !defined(ARCH_OS_DARWIN)
-
 #include "pxr/pxrns.h"
+
+// HgiInteropVulkan requires HgiVulkan which is only available when
+// Vulkan support is enabled. Exclude on macOS/iOS and when disabled.
+#if !defined(ARCH_OS_DARWIN) && PXR_VULKAN_SUPPORT_ENABLED
+
 #include "Gf/vec4i.h"
 #include "Hgi/texture.h"
 #include "HgiInterop/api.h"
@@ -165,6 +165,6 @@ private:
 
 PXR_NAMESPACE_CLOSE_SCOPE
 
-#endif // !defined(ARCH_OS_DARWIN)
+#endif // !defined(ARCH_OS_DARWIN) && PXR_VULKAN_SUPPORT_ENABLED
 
 #endif
