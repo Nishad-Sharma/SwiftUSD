@@ -16,8 +16,11 @@
 
 using std::string;
 
-#if (ARCH_COMPILER_GCC_MAJOR == 3 && ARCH_COMPILER_GCC_MINOR >= 1) || \
-    ARCH_COMPILER_GCC_MAJOR > 3 || defined(ARCH_COMPILER_CLANG)
+// Use cxxabi.h demangling on GCC/Clang, but not on Windows where cxxabi.h
+// is not available even when using Clang
+#if ((ARCH_COMPILER_GCC_MAJOR == 3 && ARCH_COMPILER_GCC_MINOR >= 1) || \
+    ARCH_COMPILER_GCC_MAJOR > 3 || defined(ARCH_COMPILER_CLANG)) && \
+    !defined(ARCH_OS_WINDOWS)
 #define _AT_LEAST_GCC_THREE_ONE_OR_CLANG
 #endif
 
