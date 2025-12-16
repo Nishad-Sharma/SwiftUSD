@@ -382,7 +382,7 @@ PXR_NAMESPACE_CLOSE_SCOPE
 #define __PXR_IMAGING_HGI_H__
 
 // Hgi
-#include <Hgi/hgi.h>
+#include <Hgi/hgiImpl.h>
 #include <Hgi/sampler.h>
 #include <Hgi/types.h>
 #include <Hgi/attachmentDesc.h>

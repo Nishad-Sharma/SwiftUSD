@@ -9,18 +9,18 @@
 #if !defined(__APPLE__)
 
 #include "HgiInterop/hgiInterop.h"
-#include "Hgi/hgi.h"
+#include "Hgi/Hgi.h"
 #include "Hgi/tokens.h"
 
 #if defined(PXR_GL_SUPPORT_ENABLED)
 #include "HgiInterop/opengl.h"
 #endif
 
-#if defined(PXR_VULKAN_SUPPORT_ENABLED)
+#if PXR_VULKAN_SUPPORT_ENABLED
 #include "HgiInterop/vulkan.h"
 #endif
 
-#if defined(PXR_METAL_SUPPORT_ENABLED)
+#if PXR_METAL_SUPPORT_ENABLED
 #include "HgiMetal/hgi.h"
 #if defined(ARCH_OS_OSX)
 #include "HgiInterop/metal.h"
@@ -34,10 +34,10 @@ struct HgiInteropImpl
 #if defined(PXR_GL_SUPPORT_ENABLED)
     std::unique_ptr<HgiInteropOpenGL> _openGLToOpenGL;
 #endif
-#if defined(PXR_VULKAN_SUPPORT_ENABLED)
+#if PXR_VULKAN_SUPPORT_ENABLED
     std::unique_ptr<HgiInteropVulkan> _vulkanToOpenGL;
 #endif
-#if defined(PXR_METAL_SUPPORT_ENABLED) && !defined(ARCH_OS_IPHONE)
+#if PXR_METAL_SUPPORT_ENABLED && !defined(ARCH_OS_IPHONE)
     std::unique_ptr<HgiInteropMetal> _metalToOpenGL;
 #endif
 };
@@ -76,7 +76,7 @@ void HgiInterop::TransferToApp(
     }
 #endif
 
-#if defined(PXR_VULKAN_SUPPORT_ENABLED)
+#if PXR_VULKAN_SUPPORT_ENABLED
     if (srcApi == HgiTokens->Vulkan) {
         // Transfer Vulkan textures to OpenGL application
         // XXX: It's possible that if we use the same HgiInterop with a 
@@ -92,7 +92,7 @@ void HgiInterop::TransferToApp(
     }
 #endif
 
-#if defined(PXR_METAL_SUPPORT_ENABLED) && !defined(ARCH_OS_IPHONE)
+#if PXR_METAL_SUPPORT_ENABLED && !defined(ARCH_OS_IPHONE)
     if (srcApi == HgiTokens->Metal) {
         // Transfer Metal textures to OpenGL application
         // XXX: It's possible that if we use the same HgiInterop with a 

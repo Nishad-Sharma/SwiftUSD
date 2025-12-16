@@ -6,9 +6,9 @@
 //
 #include "Arch/defines.h"
 
-// HgiInteropVulkan requires HgiVulkan which is only available on
-// platforms with Vulkan support (Linux, Windows). Exclude on macOS/iOS.
-#if !defined(ARCH_OS_DARWIN)
+// HgiInteropVulkan requires HgiVulkan which is only available when
+// Vulkan support is enabled.
+#if PXR_VULKAN_SUPPORT_ENABLED
 
 #include "pxr/pxrns.h"
 #include "Garch/glApi.h"
@@ -846,4 +846,4 @@ HgiInteropVulkan::CompositeToInterop(
 
 PXR_NAMESPACE_CLOSE_SCOPE
 
-#endif // !defined(ARCH_OS_DARWIN)
+#endif // PXR_VULKAN_SUPPORT_ENABLED
