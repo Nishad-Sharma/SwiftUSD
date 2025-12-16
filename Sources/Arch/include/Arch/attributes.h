@@ -15,6 +15,7 @@
 
 #include "pxr/pxrns.h"
 #include "Arch/export.h"
+#include "Arch/api.h"
 
 PXR_NAMESPACE_OPEN_SCOPE
 
@@ -253,9 +254,7 @@ struct Arch_ConstructorEntry {
         static void _name()
 
 #elif defined(ARCH_OS_WINDOWS)
-    
-#    include "Arch/api.h"
-    
+
 // Entry for a constructor/destructor in the custom section.
     __declspec(align(16))
     struct Arch_ConstructorEntry {
