@@ -241,7 +241,7 @@ struct Arch_ConstructorEntry {
     };                                                                         \
     static void _name()
 
-#elif defined(ARCH_COMPILER_GCC) || defined(ARCH_COMPILER_CLANG)
+#elif (defined(ARCH_COMPILER_GCC) || defined(ARCH_COMPILER_CLANG)) && !defined(ARCH_OS_WINDOWS)
 
 // The used attribute is required to prevent these apparently unused functions
 // from being removed by the linker.
