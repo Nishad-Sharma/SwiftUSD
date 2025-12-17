@@ -90,21 +90,18 @@ inline double ArchBitPatternToDouble(uint64_t v) {
 #error Unknown system architecture.
 #endif
 
-#if defined(ARCH_OS_LINUX) || defined(doxygen)
+#if defined(ARCH_OS_LINUX) || defined(ARCH_OS_DARWIN) || \
+    defined(ARCH_OS_WINDOWS) || defined(ARCH_OS_WASM_VM) || defined(doxygen)
 
 /// Computes the sine and cosine of the specified value as a float.
-inline void ArchSinCosf(float v, float *s, float *c) { sincosf(v, s, c); }
-
-/// Computes the sine and cosine of the specified value as a double.
-inline void ArchSinCos(double v, double *s, double *c) { sincos(v, s, c); }
-
-#elif defined(ARCH_OS_DARWIN) || defined(ARCH_OS_WINDOWS) || \
-      defined(ARCH_OS_WASM_VM)
-
+/// Note: We use __builtin_ intrinsics instead of sincosf/sincos to avoid
+/// requiring <cmath> which conflicts with Swift C++ interop header paths.
 inline void ArchSinCosf(float v, float *s, float *c) {
     *s = __builtin_sinf(v);
     *c = __builtin_cosf(v);
 }
+
+/// Computes the sine and cosine of the specified value as a double.
 inline void ArchSinCos(double v, double *s, double *c) {
     *s = __builtin_sin(v);
     *c = __builtin_cos(v);
