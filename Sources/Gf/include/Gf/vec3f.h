@@ -23,8 +23,6 @@
 #include "Tf/hash.h"
 
 #include <cstddef>
-#include <cmath>
-
 #include <iosfwd>
 
 PXR_NAMESPACE_OPEN_SCOPE
