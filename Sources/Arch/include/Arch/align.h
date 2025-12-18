@@ -19,17 +19,8 @@
 #include "Arch/api.h"
 #include "Arch/defines.h"
 
-// Note: We avoid #include <cstddef> and <cstdint> on Windows due to Swift C++
-// interop module conflicts. The MSVC STL headers trigger ICU module loading
-// which fails due to header search path issues. Use compiler built-in types instead.
-#if defined(ARCH_OS_WINDOWS)
-// Clang defines __SIZE_TYPE__ and __UINTPTR_TYPE__ as built-in type macros
-using size_t = __SIZE_TYPE__;
-using uintptr_t = __UINTPTR_TYPE__;
-#else
 #include <cstddef>
 #include <cstdint>
-#endif
 
 PXR_NAMESPACE_OPEN_SCOPE
 

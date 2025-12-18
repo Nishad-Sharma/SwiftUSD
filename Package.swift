@@ -339,7 +339,6 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/stackotter/swift-cross-ui", branch: "main"),
-        .package(url: "https://github.com/AthemIO/icu.git", branch: "maint/maint-78"),
         .package(url: "https://github.com/AthemIO/SwiftASWF", branch: "main"),
         .package(url: "https://github.com/swiftlang/swift-syntax.git", from: "600.0.1"),
         .package(url: "https://github.com/swiftlang/swift-docc-plugin", from: "1.4.3"),
@@ -601,7 +600,11 @@ let package = Package(
             name: "Pegtl",
             dependencies: [
                 .target(name: "Arch"),
-                .product(name: "icuin", package: "icu", condition: .when(platforms: [.windows])),
+            ],
+            exclude: [
+                // ICU contrib files require the ICU library which causes module conflicts on Windows
+                // (MSVC's std module has an icuuc dependency that conflicts with external ICU packages)
+                "include/Pegtl/pegtl/contrib/icu",
             ],
             cxxSettings: [
                 .headerSearchPath("include/Pegtl"),

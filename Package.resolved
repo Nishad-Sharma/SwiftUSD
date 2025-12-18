@@ -1,15 +1,6 @@
 {
-  "originHash" : "d89235d56a559921c9befc0189c23b9359e29e8bb03d1f788830c0a3a7aba155",
+  "originHash" : "edf49ab6b7b2c802ea9f48c999b0bc4c6cb1d79fb944d1cf55c28c63fdff5340",
   "pins" : [
-    {
-      "identity" : "icu",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/AthemIO/icu.git",
-      "state" : {
-        "branch" : "maint/maint-78",
-        "revision" : "64a0e9bd291ca297a7ad6490d1ae4f55426361ce"
-      }
-    },
     {
       "identity" : "jpeg",
       "kind" : "remoteSourceControl",
