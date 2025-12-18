@@ -305,6 +305,10 @@ let package = Package(
             name: "UsdImagingGL",
             targets: ["UsdImagingGL"]
         ),
+        .library(
+            name: "UsdSkelImaging",
+            targets: ["UsdSkelImaging"]
+        ),
         // ----------------- Apps -----
         .executable(
             name: "UsdView",
@@ -2225,6 +2229,41 @@ let package = Package(
             ]
         ),
 
+        // UsdSkelImaging - Skeletal Animation Imaging Adapter
+        .target(
+            name: "UsdSkelImaging",
+            dependencies: [
+                .target(name: "Arch"),
+                .target(name: "Tf"),
+                .target(name: "Gf"),
+                .target(name: "Vt"),
+                .target(name: "Plug"),
+                .target(name: "Trace"),
+                .target(name: "Work"),
+                .target(name: "Hd"),
+                .target(name: "Hio"),
+                .target(name: "Sdf"),
+                .target(name: "Usd"),
+                .target(name: "UsdGeom"),
+                .target(name: "UsdSkel"),
+                .target(name: "UsdImaging"),
+            ],
+            resources: [
+                .copy("shaders"),
+                .process("Resources")
+            ],
+            cxxSettings: [
+                .define("MFB_PACKAGE_NAME", to: "UsdSkelImaging"),
+                .define("MFB_ALT_PACKAGE_NAME", to: "UsdSkelImaging"),
+                .define("MFB_PACKAGE_MODULE", to: "UsdSkelImaging"),
+                .define("USDSKELIMAGING_EXPORTS", to: "1"),
+                .define("_ALLOW_COMPILER_AND_STL_VERSION_MISMATCH", .when(platforms: [.windows])),
+                .define("_ALLOW_KEYWORD_MACROS", to: "1", .when(platforms: [.windows])),
+                .define("static_assert(_conditional, ...)", to: "", .when(platforms: [.windows])),
+                .define("NOMINMAX", .when(platforms: [.windows])),
+            ]
+        ),
+
         .target(
             name: "UsdImagingGL",
             dependencies: [
@@ -2251,6 +2290,7 @@ let package = Package(
                 .target(name: "UsdHydra"),
                 .target(name: "UsdShade"),
                 .target(name: "UsdImaging"),
+                .target(name: "UsdSkelImaging"),
             ],
             resources: [
                 .process("Resources")
