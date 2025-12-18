@@ -28,12 +28,6 @@
 #include <Arch/inttypes.h>
 #include <Arch/math.h>
 
-// Note: The following headers are excluded from the Arch module on Windows
-// because they include <string> which triggers ICU module loading via the MSVC STL's
-// <cuchar> -> <uchar.h> chain. ICU's module map has header search path issues that
-// prevent it from building correctly when triggered indirectly.
-// These headers are still available for direct C++ inclusion in .cpp files.
-#if !defined(_WIN32)
 #include <Arch/daemon.h>
 #include <Arch/demangle.h>
 #include <Arch/env.h>
@@ -49,7 +43,6 @@
 #include <Arch/vsnprintf.h>
 #include <Arch/errno.h>
 #include <Arch/regex.h>
-#endif
 #else // !defined(__cplusplus)
 #include <Arch/defines.h>
 #include <Arch/export.h>
