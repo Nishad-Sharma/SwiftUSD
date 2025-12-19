@@ -137,4 +137,30 @@ extension Usd.Prim: Prim
   {
     IteratorSequence(GetChildren()).map { $0 }
   }
+
+  /// Return a UsdAttribute with the name `name`. The attribute returned may
+  /// or may not actually exist so it must be checked for validity.
+  public func getAttribute(_ name: Tf.Token) -> Usd.Attribute
+  {
+    GetAttribute(name)
+  }
+
+  /// Return a UsdAttribute with the name `name`. The attribute returned may
+  /// or may not actually exist so it must be checked for validity.
+  public func getAttribute(_ name: String) -> Usd.Attribute
+  {
+    GetAttribute(Tf.Token(name))
+  }
+
+  /// Return true if this prim has an attribute named `name`, false otherwise.
+  public func hasAttribute(_ name: Tf.Token) -> Bool
+  {
+    HasAttribute(name)
+  }
+
+  /// Return true if this prim has an attribute named `name`, false otherwise.
+  public func hasAttribute(_ name: String) -> Bool
+  {
+    HasAttribute(Tf.Token(name))
+  }
 }

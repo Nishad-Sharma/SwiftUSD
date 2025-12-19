@@ -43,6 +43,7 @@ public enum BundleFramework: CaseIterable, Sendable
   case hio
   case glf
   case usdImaging
+  case usdSkelImaging
   case usdImagingGL
 
   /// Core plugins that define SdfMetadata and must be loaded first.
@@ -87,6 +88,7 @@ public enum BundleFramework: CaseIterable, Sendable
       case .hio: Bundle.hio
       case .glf: Bundle.glf
       case .usdImaging: Bundle.usdImaging
+      case .usdSkelImaging: Bundle.usdSkelImaging
       case .usdImagingGL: Bundle.usdImagingGL
     }
 

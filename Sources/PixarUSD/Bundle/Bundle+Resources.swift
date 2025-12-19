@@ -155,6 +155,10 @@ public extension Bundle
   static let usdImaging = Bundle(path: "\(pxrRoot)/SwiftUSD_UsdImaging\(ext)")
 
   /**
+   * Where ``UsdSkelImaging`` application bundle resources are located. */
+  static let usdSkelImaging = Bundle(path: "\(pxrRoot)/SwiftUSD_UsdSkelImaging\(ext)")
+
+  /**
    * Where ``UsdImagingGL`` application bundle resources are located. */
   static let usdImagingGL = Bundle(path: "\(pxrRoot)/SwiftUSD_UsdImagingGL\(ext)")
 
