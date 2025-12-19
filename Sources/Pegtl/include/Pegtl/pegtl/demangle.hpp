@@ -4,6 +4,11 @@
 #ifndef PXR_PEGTL_DEMANGLE_HPP
 #define PXR_PEGTL_DEMANGLE_HPP
 
+// On Windows with Swift C++ interop, <string> must be included before <string_view>
+// to properly expose std::string_view through the MSVC module system.
+#ifdef _WIN32
+#include <string>
+#endif
 #include <string_view>
 
 #include "config.hpp"
