@@ -104,10 +104,12 @@ HdMtlxCreateMtlxDocumentFromHdMaterialNetworkInterface(
 
 PXR_NAMESPACE_CLOSE_SCOPE
 
-#endif
-#ifndef __PXR_IMAGING_HDMTLX_H__
-#define __PXR_IMAGING_HDMTLX_H__
+#endif // PXR_IMAGING_HD_MTLX_HDMTLX_H
 
-// HdMtlx
-#include <HdMtlx/hdMtlx.h>
-#endif  // __PXR_IMAGING_HDMTLX_H__
+// Umbrella includes for Swift module - include other module headers
+#ifndef __PXR_IMAGING_HDMTLX_UMBRELLA__
+#define __PXR_IMAGING_HDMTLX_UMBRELLA__
+#include <HdMtlx/combinedMtlxVersion.h>
+// Note: debugCodes.h excluded - TF_DEBUG_CODES can cause Swift module issues
+#include <HdMtlx/tokens.h>
+#endif // __PXR_IMAGING_HDMTLX_UMBRELLA__
