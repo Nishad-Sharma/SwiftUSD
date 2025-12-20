@@ -77,6 +77,8 @@
 #include <Gf/vec4i.h>
 
 // nanocolor must be included before colorSpace_data.h (which uses NcColorSpace)
+// Include nc/nanocolor.h first for Swift module completeness (same include guard as nanocolor.h)
+#include <Gf/nc/nanocolor.h>
 #include <Gf/nanocolor.h>
 #include <Gf/color.h>
 #include <Gf/colorSpace.h>
