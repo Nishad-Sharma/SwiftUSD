@@ -49,7 +49,13 @@
 #include <Usd/resolveTarget.h>
 #include <Usd/resolver.h>
 #include <Usd/schemaBase.h>
+
+// schemaRegistry.h uses TfSingleton with inline GetInstance() which causes
+// module serialization failures on Windows
+#if !defined(_WIN32)
 #include <Usd/schemaRegistry.h>
+#endif
+
 #include <Usd/shared.h>
 #include <Usd/specializes.h>
 #include <Usd/stageCache.h>

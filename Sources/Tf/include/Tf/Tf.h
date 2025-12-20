@@ -64,7 +64,13 @@
 #include <Tf/refBase.h>
 #include <Tf/refCount.h>
 #include <Tf/delegatedCountPtr.h>
+
+// refPtrTracker.h uses TfSingleton with inline GetInstance() which causes
+// module serialization failures on Windows
+#if !defined(_WIN32)
 #include <Tf/refPtrTracker.h>
+#endif
+
 #include <Tf/refPtr.h>
 #include <Tf/weakBase.h>
 #include <Tf/weakPtrFacade.h>
@@ -106,7 +112,13 @@
 #include <Tf/diagnostic.h>
 #include <Tf/diagnosticHelper.h>
 #include <Tf/diagnosticLite.h>
+
+// diagnosticMgr.h uses TfSingleton with inline GetInstance() which causes
+// module serialization failures on Windows
+#if !defined(_WIN32)
 #include <Tf/diagnosticMgr.h>
+#endif
+
 #include <Tf/errorMark.h>
 #include <Tf/errorTransport.h>
 #include <Tf/mallocTag.h>
@@ -122,7 +134,12 @@
 
 // Notification system (depends on anyWeakPtr, weakPtr, type, diagnostic, mallocTag)
 #include <Tf/notice.h>
+
+// noticeRegistry.h uses TfSingleton with inline GetInstance() which causes
+// module serialization failures on Windows
+#if !defined(_WIN32)
 #include <Tf/noticeRegistry.h>
+#endif
 
 // Pattern matching and paths
 #include <Tf/pathUtils.h>

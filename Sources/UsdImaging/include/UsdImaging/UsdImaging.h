@@ -3,7 +3,13 @@
 
 // UsdImaging
 #include <UsdImaging/adapterManager.h>
+
+// adapterRegistry.h uses TfSingleton with inline GetInstance() which causes
+// module serialization failures on Windows
+#if !defined(_WIN32)
 #include <UsdImaging/adapterRegistry.h>
+#endif
+
 #include <UsdImaging/api.h>
 #include <UsdImaging/apiSchemaAdapter.h>
 #include <UsdImaging/basisCurvesAdapter.h>

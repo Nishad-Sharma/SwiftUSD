@@ -106,7 +106,14 @@
 #include <Hd/nurbsPatchSchema.h>
 #include <Hd/nurbsPatchTrimCurveSchema.h>
 #include <Hd/overlayContainerDataSource.h>
+
+// perfLog.h uses TfSingleton with inline GetInstance() which causes
+// module serialization failures on Windows due to the _instance static variable
+// definition not being visible during module compilation
+#if !defined(_WIN32)
 #include <Hd/perfLog.h>
+#endif
+
 #include <Hd/pluginRenderDelegateUniqueHandle.h>
 #include <Hd/points.h>
 #include <Hd/prefixingSceneIndex.h>
@@ -140,7 +147,13 @@
 #include <Hd/sampleFilterSchema.h>
 #include <Hd/sceneDelegate.h>
 #include <Hd/sceneGlobalsSchema.h>
+
+// sceneIndex.h uses TfSingleton with inline GetInstance() which causes
+// module serialization failures on Windows
+#if !defined(_WIN32)
 #include <Hd/sceneIndex.h>
+#endif
+
 #include <Hd/sceneIndexAdapterSceneDelegate.h>
 #include <Hd/sceneIndexObserver.h>
 #include <Hd/sceneIndexPlugin.h>

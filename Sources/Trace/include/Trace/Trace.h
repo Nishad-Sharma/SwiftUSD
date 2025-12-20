@@ -14,7 +14,13 @@
 #include <Trace/category.h>
 #include <Trace/collection.h>
 #include <Trace/collectionNotice.h>
+
+// collector.h uses TfSingleton with inline GetInstance() which causes
+// module serialization failures on Windows
+#if !defined(_WIN32)
 #include <Trace/collector.h>
+#endif
+
 #include <Trace/concurrentList.h>
 #include <Trace/counterAccumulator.h>
 #include <Trace/dataBuffer.h>

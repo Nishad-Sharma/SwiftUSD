@@ -20,7 +20,13 @@
 #include <Sdf/attributeSpec.h>
 #include <Sdf/changeBlock.h>
 #include <Sdf/changeList.h>
+
+// changeManager.h uses TfSingleton with inline GetInstance() which causes
+// module serialization failures on Windows
+#if !defined(_WIN32)
 #include <Sdf/changeManager.h>
+#endif
+
 #include <Sdf/children.h>
 #include <Sdf/childrenPolicies.h>
 #include <Sdf/childrenProxy.h>
@@ -81,7 +87,13 @@
 #include <Sdf/pseudoRootSpec.h>
 #include <Sdf/reference.h>
 #include <Sdf/relationshipSpec.h>
+
+// schema.h uses TfSingleton with inline GetInstance() which causes
+// module serialization failures on Windows
+#if !defined(_WIN32)
 #include <Sdf/schema.h>
+#endif
+
 #include <Sdf/schemaTypeRegistration.h>
 #include <Sdf/site.h>
 #include <Sdf/siteUtils.h>
