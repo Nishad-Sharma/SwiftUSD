@@ -119,8 +119,14 @@
 #include <Tf/diagnosticMgr.h>
 #endif
 
+// errorMark.h and errorTransport.h include diagnosticMgr.h which uses
+// TfSingleton with inline GetInstance() causing module serialization
+// failures on Windows
+#if !defined(_WIN32)
 #include <Tf/errorMark.h>
 #include <Tf/errorTransport.h>
+#endif
+
 #include <Tf/mallocTag.h>
 #include <Tf/status.h>
 #include <Tf/warning.h>
