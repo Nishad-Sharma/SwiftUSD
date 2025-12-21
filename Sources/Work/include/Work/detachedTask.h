@@ -10,11 +10,7 @@
 /// \file work/detachedTask.h
 
 #include "pxr/pxrns.h"
-// errorMark.h uses TfSingleton via diagnosticMgr.h which causes
-// module serialization failures on Windows
-#if !defined(_WIN32)
 #include "Tf/errorMark.h"
-#endif
 #include "Work/api.h"
 #include "Work/dispatcher.h"
 #include "Work/impl.h"
@@ -30,13 +26,9 @@ struct Work_DetachedTask
     explicit Work_DetachedTask(Fn &&fn) : _fn(std::move(fn)) {}
     explicit Work_DetachedTask(Fn const &fn) : _fn(fn) {}
     void operator()() const {
-#if !defined(_WIN32)
         TfErrorMark m;
         _fn();
         m.Clear();
-#else
-        _fn();
-#endif
     }
 private:
     Fn _fn;

@@ -14,12 +14,8 @@
 #include "Work/impl.h"
 #include "Work/threadLimits.h"
 
-// errorMark.h and errorTransport.h use TfSingleton via diagnosticMgr.h
-// which causes module serialization failures on Windows
-#if !defined(_WIN32)
 #include "Tf/errorMark.h"
 #include "Tf/errorTransport.h"
-#endif
 
 #include <OneTBB/tbb/concurrent_vector.h>
 
@@ -68,11 +64,7 @@ public:
     inline void Run(Callable &&c) {
         _dispatcher.Run(
             _InvokerTask<typename std::remove_reference<Callable>::type>(
-#if !defined(_WIN32)
                 std::forward<Callable>(c), &_errors));
-#else
-                std::forward<Callable>(c), nullptr));
-#endif
     }
 
     template <class Callable, class A0, class ... Args>
@@ -104,28 +96,18 @@ public:
     WORK_API bool IsCancelled() const;
 
 private:
-#if !defined(_WIN32)
     typedef tbb::concurrent_vector<TfErrorTransport> _ErrorTransports;
-#endif
 
     // Function invoker helper that wraps the invocation with an ErrorMark so we
     // can transmit errors that occur back to the thread that Wait() s for tasks
     // to complete.
     template <class Fn>
     struct _InvokerTask {
-#if !defined(_WIN32)
         explicit _InvokerTask(Fn &&fn, _ErrorTransports *err)
             : _fn(std::move(fn)), _errors(err) {}
 
         explicit _InvokerTask(Fn const &fn, _ErrorTransports *err)
             : _fn(fn), _errors(err) {}
-#else
-        explicit _InvokerTask(Fn &&fn, void *)
-            : _fn(std::move(fn)) {}
-
-        explicit _InvokerTask(Fn const &fn, void *)
-            : _fn(fn) {}
-#endif
 
         // Ensure only moves happen, no copies.
         _InvokerTask(_InvokerTask &&other) = default;
@@ -133,38 +115,28 @@ private:
         _InvokerTask &operator=(const _InvokerTask &other) = delete;
 
         void operator()() const {
-#if !defined(_WIN32)
             TfErrorMark m;
             _fn();
             if (!m.IsClean())
                 Work_Dispatcher::_TransportErrors(m, _errors);
-#else
-            _fn();
-#endif
         }
     private:
         Fn _fn;
-#if !defined(_WIN32)
         _ErrorTransports *_errors;
-#endif
     };
 
-#if !defined(_WIN32)
     // Helper function that removes errors from \p m and stores them in a new
     // entry in \p errors.
     WORK_API static void
     _TransportErrors(const TfErrorMark &m, _ErrorTransports *errors);
-#endif
 
     // WorkDispatcher implementation
     Impl _dispatcher;
     std::atomic<bool> _isCancelled;
 
-#if !defined(_WIN32)
     // The error transports we use to transmit errors in other threads back to
     // this thread.
     _ErrorTransports _errors;
-#endif
 
     // Concurrent calls to Wait() have to serialize certain cleanup operations.
     std::atomic_flag _waitCleanupFlag;

@@ -7,8 +7,15 @@
 
 // work
 #include <Work/api.h>
+
+// dispatcher.h and detachedTask.h include errorMark.h which transitively
+// includes diagnosticMgr.h with TfSingleton causing module serialization
+// failures on Windows
+#if !defined(_WIN32)
 #include <Work/detachedTask.h>
 #include <Work/dispatcher.h>
+#endif
+
 #include <Work/loops.h>
 #include <Work/reduce.h>
 #include <Work/singularTask.h>

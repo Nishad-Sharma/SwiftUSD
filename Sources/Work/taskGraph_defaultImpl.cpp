@@ -7,7 +7,6 @@
 #include "Work/taskGraph_defaultImpl.h"
 
 #include "Arch/hints.h"
-#include "Tf/diagnostic.h"
 
 PXR_NAMESPACE_OPEN_SCOPE
 
