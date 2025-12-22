@@ -8,34 +8,35 @@
 // work
 #include <Work/api.h>
 
-// dispatcher.h and detachedTask.h include errorMark.h which transitively
-// includes diagnosticMgr.h with TfSingleton causing module serialization
-// failures on Windows
+// Headers that use or transitively include dispatcher.h/detachedTask.h
+// are excluded on Windows due to TfSingleton module serialization issues
+// (dispatcher.h includes errorMark.h which includes diagnosticMgr.h)
 #if !defined(_WIN32)
 #include <Work/detachedTask.h>
 #include <Work/dispatcher.h>
+#include <Work/utils.h>
+#include <Work/withScopedParallelism.h>
+#include <Work/taskGraph_defaultImpl.h>
+#include <Work/isolatingDispatcher.h>
+#include <Work/dispatcher_impl.h>
+#include <Work/impl.h>
+#include <Work/detachedTask_impl.h>
+#include <Work/isolatingDispatcher_impl.h>
+#include <Work/taskGraph.h>
 #endif
 
+// Safe headers that don't include dispatcher.h
 #include <Work/loops.h>
 #include <Work/reduce.h>
 #include <Work/singularTask.h>
 #include <Work/threadLimits.h>
-#include <Work/utils.h>
-#include <Work/withScopedParallelism.h>
-
-#include <Work/taskGraph_defaultImpl.h>
-#include <Work/isolatingDispatcher.h>
 #include <Work/zeroAllocator.h>
-#include <Work/dispatcher_impl.h>
 #include <Work/withScopedParallelism_impl.h>
 #include <Work/threadLimits_impl.h>
 #include <Work/reduce_impl.h>
 #include <Work/taskGraph_impl.h>
 #include <Work/loops_impl.h>
 #include <Work/sort_impl.h>
-#include <Work/impl.h>
-#include <Work/detachedTask_impl.h>
-#include <Work/isolatingDispatcher_impl.h>
 #include <Work/sort.h>
-#include <Work/taskGraph.h>
+
 #endif  // __PXR_BASE_WORK_H__
