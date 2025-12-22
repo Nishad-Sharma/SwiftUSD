@@ -137,8 +137,14 @@
 #include <Vdf/parallelExecutorEngine.h>
 #include <Vdf/parallelExecutorEngineBase.h>
 #include <Vdf/parallelSpeculationExecutorEngine.h>
+
+// These headers use WorkTaskGraph which is excluded on Windows
+// due to TfSingleton module serialization issues in the Work module
+#if !defined(_WIN32)
 #include <Vdf/parallelTaskSync.h>
 #include <Vdf/parallelTaskWaitlist.h>
+#endif
+
 #include <Vdf/pullBasedExecutorEngine.h>
 
 // Speculation execution

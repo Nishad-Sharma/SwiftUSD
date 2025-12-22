@@ -50,7 +50,13 @@
 #include <Sdf/identity.h>
 #include <Sdf/instantiatePool.h>
 #include <Sdf/invoke.hpp>
+
+// layer.h has a WorkDispatcher field which is excluded on Windows
+// due to TfSingleton module serialization issues in the Work module
+#if !defined(_WIN32)
 #include <Sdf/layer.h>
+#endif
+
 #include <Sdf/layerHints.h>
 #include <Sdf/layerOffset.h>
 #include <Sdf/layerRegistry.h>
