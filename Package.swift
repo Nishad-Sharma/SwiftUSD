@@ -2510,6 +2510,7 @@ let package = Package(
                 // --- usd imaging. ------
                 .target(name: "UsdShaders"),
                 .target(name: "UsdImaging"),
+                .target(name: "UsdSkelImaging"),
                 .target(name: "UsdImagingGL"),
                 // -------- macros. ------
                 .target(name: "PixarMacros"),

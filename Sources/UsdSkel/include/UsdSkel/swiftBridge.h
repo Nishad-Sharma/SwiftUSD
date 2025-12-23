@@ -322,6 +322,36 @@ bool UsdSkel_Swift_AnimQueryComputeJointLocalTransforms4d(
 
 /// @}
 
+// ===========================================================================
+// UsdSkel Transform Utilities Swift Bridge Functions
+// ===========================================================================
+
+/// @{
+/// \name Transform Composition Utilities
+///
+/// These wrap UsdSkel utility functions for transform composition.
+
+/// Compose transforms from translation/rotation/scale components.
+/// This is essential for animation blending where transforms are decomposed,
+/// blended component-wise (LERP for translation/scale, SLERP for rotation),
+/// then recomposed into matrices.
+///
+/// Wraps UsdSkelMakeTransforms for Swift access.
+///
+/// \param translations Array of translation vectors (Vec3f)
+/// \param rotations Array of rotation quaternions (Quatf)
+/// \param scales Array of scale vectors (Vec3h)
+/// \param xforms Output array for composed transforms (Matrix4d)
+/// \return true if composition succeeded
+USDSKEL_API
+bool UsdSkel_Swift_MakeTransforms(
+    const VtVec3fArray& translations,
+    const VtQuatfArray& rotations,
+    const VtVec3hArray& scales,
+    VtMatrix4dArray* xforms);
+
+/// @}
+
 PXR_NAMESPACE_CLOSE_SCOPE
 
 #endif // PXR_USD_USD_SKEL_SWIFT_BRIDGE_H

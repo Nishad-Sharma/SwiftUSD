@@ -14,9 +14,13 @@
 #include "UsdSkel/skeletonQuery.h"
 #include "UsdSkel/skinningQuery.h"
 #include "UsdSkel/topology.h"
+#include "UsdSkel/utils.h"
 
 #include "Gf/matrix4d.h"
 #include "Gf/matrix4f.h"
+#include "Gf/quatf.h"
+#include "Gf/vec3f.h"
+#include "Gf/vec3h.h"
 
 PXR_NAMESPACE_OPEN_SCOPE
 
@@ -280,6 +284,23 @@ UsdSkel_Swift_AnimQueryComputeJointLocalTransforms4d(
         return false;
     }
     return query.ComputeJointLocalTransforms(xforms, time);
+}
+
+// ===========================================================================
+// UsdSkel Transform Utilities Swift Bridge Functions
+// ===========================================================================
+
+bool
+UsdSkel_Swift_MakeTransforms(
+    const VtVec3fArray& translations,
+    const VtQuatfArray& rotations,
+    const VtVec3hArray& scales,
+    VtMatrix4dArray* xforms)
+{
+    if (!xforms) {
+        return false;
+    }
+    return UsdSkelMakeTransforms(translations, rotations, scales, xforms);
 }
 
 PXR_NAMESPACE_CLOSE_SCOPE
