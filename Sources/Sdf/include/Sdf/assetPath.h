@@ -296,6 +296,14 @@ void SdfResolveAssetPaths(const SdfLayerHandle &anchor,
                         TfSpan<SdfAssetPath> assetPaths,
                         std::vector<std::string> *errors);
 
+// Forward declare VtArray for Swift compatibility typedef
+template<typename T> class VtArray;
+
+/// Type alias for VtArray<SdfAssetPath> for Swift compatibility.
+/// Swift C++ interop cannot instantiate C++ templates, so this provides
+/// a pre-instantiated type that Swift can import.
+using SdfAssetPathArray = VtArray<SdfAssetPath>;
+
 PXR_NAMESPACE_CLOSE_SCOPE
 
 #endif // PXR_USD_SDF_ASSET_PATH_H

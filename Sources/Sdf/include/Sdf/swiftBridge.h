@@ -41,6 +41,7 @@
 #include "Sdf/layer.h"
 #include "Sdf/path.h"
 #include "Tf/token.h"
+#include "Vt/array.h"
 #include "Vt/value.h"
 
 #include <string>
@@ -198,6 +199,47 @@ std::string Sdf_Swift_GetPathString(const SdfPath& path);
 /// Gets the name portion of an SdfPath (the last component).
 SDF_API
 std::string Sdf_Swift_GetPathName(const SdfPath& path);
+
+/// @}
+
+/// @{
+/// \name SdfAssetPathArray Swift Bridge Functions
+///
+/// Helper functions for VtArray<SdfAssetPath> that work around Swift interop
+/// limitations. These are essential for working with clip asset paths and
+/// other USD APIs that use asset path arrays.
+
+/// Creates an empty SdfAssetPathArray.
+SDF_API
+VtArray<SdfAssetPath> Sdf_Swift_CreateAssetPathArray();
+
+/// Gets the size of an SdfAssetPathArray.
+SDF_API
+size_t Sdf_Swift_AssetPathArraySize(const VtArray<SdfAssetPath>& array);
+
+/// Gets an element from an SdfAssetPathArray at the given index.
+/// Returns an empty SdfAssetPath if index is out of bounds.
+SDF_API
+SdfAssetPath Sdf_Swift_AssetPathArrayGetElement(
+    const VtArray<SdfAssetPath>& array, size_t index);
+
+/// Appends an element to an SdfAssetPathArray.
+SDF_API
+void Sdf_Swift_AssetPathArrayPushBack(
+    VtArray<SdfAssetPath>& array, const SdfAssetPath& element);
+
+/// Checks if a VtValue holds an SdfAssetPathArray.
+SDF_API
+bool Sdf_Swift_VtValueHoldsAssetPathArray(const VtValue& value);
+
+/// Extracts an SdfAssetPathArray from a VtValue.
+/// Returns an empty array if the value doesn't hold an SdfAssetPathArray.
+SDF_API
+VtArray<SdfAssetPath> Sdf_Swift_VtValueGetAssetPathArray(const VtValue& value);
+
+/// Creates a VtValue holding an SdfAssetPathArray.
+SDF_API
+VtValue Sdf_Swift_VtValueFromAssetPathArray(const VtArray<SdfAssetPath>& array);
 
 /// @}
 

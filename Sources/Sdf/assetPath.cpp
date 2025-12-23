@@ -38,6 +38,11 @@ TF_REGISTRY_FUNCTION(VtValue)
     VtValue::RegisterSimpleCast<std::string, SdfAssetPath>();
 }
 
+// Explicit template instantiation for Swift C++ interop.
+// Swift cannot instantiate C++ templates, so we must provide explicit
+// instantiation for VtArray<SdfAssetPath> to be usable from Swift.
+template class SDF_API VtArray<SdfAssetPath>;
+
 static const char Delimiter = '@';
 
 // Read a UTF-8 char starting at 'cp' and return its value as an int.  Also

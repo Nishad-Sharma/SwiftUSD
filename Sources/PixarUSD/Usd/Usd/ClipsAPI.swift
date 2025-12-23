@@ -62,14 +62,6 @@ public struct UsdClipTime: Sendable {
 
 public extension Usd.ClipsAPI {
 
-    // MARK: - Initialization
-
-    /// Create a ClipsAPI for the given prim.
-    /// - Parameter prim: The prim to attach clip metadata to
-    init(_ prim: Usd.Prim) {
-        self = Pixar.UsdClipsAPI(prim)
-    }
-
     // MARK: - Clip Prim Path
 
     /// Get the prim path within clips from which time samples are read.
