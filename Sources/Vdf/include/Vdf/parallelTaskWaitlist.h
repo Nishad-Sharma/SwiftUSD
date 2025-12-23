@@ -7,6 +7,10 @@
 #ifndef PXR_EXEC_VDF_PARALLEL_TASK_WAITLIST_H
 #define PXR_EXEC_VDF_PARALLEL_TASK_WAITLIST_H
 
+// WorkTaskGraph is not available on Windows due to TfSingleton module
+// serialization issues, so this entire header must be excluded.
+#if !defined(_WIN32)
+
 ///\file
 
 #include "pxr/pxr.h"
@@ -106,4 +110,6 @@ private:
 
 PXR_NAMESPACE_CLOSE_SCOPE
 
-#endif
+#endif // !defined(_WIN32)
+
+#endif // PXR_EXEC_VDF_PARALLEL_TASK_WAITLIST_H

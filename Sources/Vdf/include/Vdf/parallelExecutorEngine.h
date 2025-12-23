@@ -7,6 +7,10 @@
 #ifndef PXR_EXEC_VDF_PARALLEL_EXECUTOR_ENGINE_H
 #define PXR_EXEC_VDF_PARALLEL_EXECUTOR_ENGINE_H
 
+// WorkTaskGraph is not available on Windows due to TfSingleton module
+// serialization issues, so this entire header must be excluded.
+#if !defined(_WIN32)
+
 ///\file
 
 #include "pxr/pxr.h"
@@ -463,5 +467,7 @@ VdfParallelExecutorEngine<DataManagerType>::_LockedData::TransferOwnership(
 }
 
 PXR_NAMESPACE_CLOSE_SCOPE
+
+#endif // !defined(_WIN32)
 
 #endif

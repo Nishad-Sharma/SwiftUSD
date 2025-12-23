@@ -7,6 +7,10 @@
 #ifndef PXR_USD_SDF_LAYER_H
 #define PXR_USD_SDF_LAYER_H
 
+// WorkDispatcher is not available on Windows due to TfSingleton module
+// serialization issues, so this entire header must be excluded.
+#if !defined(_WIN32)
+
 /// \file sdf/layer.h
 
 #include "pxr/pxrns.h"
@@ -2102,5 +2106,7 @@ PXR_NAMESPACE_CLOSE_SCOPE
 /// Swift C++ interop retain/release functions for SdfLayer
 void SdfLayerRetain(PXR_NS::SdfLayer *);
 void SdfLayerRelease(PXR_NS::SdfLayer *);
+
+#endif // !defined(_WIN32)
 
 #endif // PXR_USD_SDF_LAYER_H
