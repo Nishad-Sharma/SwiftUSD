@@ -21,9 +21,6 @@
 #include "UsdGeom/primvarsAPI.h"
 #include "UsdLux/lightAPI.h"
 #include "UsdLux/lightFilter.h"
-#include "UsdLux/shadowAPI.h"
-
-#include "Hdx/simpleLightTask.h"
 #include "UsdRender/settingsBase.h"
 
 #include "Hd/light.h"
@@ -773,23 +770,6 @@ UsdImagingPrimAdapter::GetLightParamValue(
         VtValue val;
         light.GetMaterialSyncModeAttr().Get(&val, time);
         return val;
-    } else if (paramName == HdLightTokens->shadowParams) {
-        // Translate UsdLux.ShadowAPI attributes into HdxShadowParams
-        HdxShadowParams shadowParams;
-        UsdLuxShadowAPI shadowAPI(prim);
-        if (shadowAPI) {
-            bool shadowEnabled = false;
-            if (UsdAttribute enableAttr = shadowAPI.GetShadowEnableAttr()) {
-                enableAttr.Get(&shadowEnabled, time);
-            }
-            shadowParams.enabled = shadowEnabled;
-
-            // Set default shadow resolution and bias for reasonable quality
-            shadowParams.resolution = 2048;
-            shadowParams.bias = 0.001;
-            shadowParams.blur = 0.0;
-        }
-        return VtValue(shadowParams);
     }
 
     // Fallback to USD attributes.
