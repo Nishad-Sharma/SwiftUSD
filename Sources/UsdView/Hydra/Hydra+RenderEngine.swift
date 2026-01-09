@@ -39,6 +39,13 @@ public enum Hydra
     private var material = Pixar.GlfSimpleMaterial()
     private var sceneAmbient = Pixar.GfVec4f(0.01, 0.01, 0.01, 1.0)
 
+    /// Whether shadows are enabled for rendering. Default is false.
+    public var shadowsEnabled: Bool = false {
+      didSet {
+        engine.setEnableShadows(shadowsEnabled)
+      }
+    }
+
     public required init(stage: UsdStageRefPtr)
     {
       self.stage = stage
@@ -151,6 +158,26 @@ public enum Hydra
       material.SetShininess(Double(32.0))
 
       sceneAmbient = Pixar.GfVec4f(Float(0.01), Float(0.01), Float(0.01), Float(1.0))
+    }
+
+    /// Enables shadows with recommended depth bias settings to prevent shadow acne.
+    /// - Parameters:
+    ///   - depthBiasConstant: Constant depth bias factor (default: 0.001)
+    ///   - depthBiasSlope: Slope-scaled depth bias factor (default: 1.0)
+    public func enableShadows(depthBiasConstant: Float = 0.001, depthBiasSlope: Float = 1.0)
+    {
+      var params = Pixar.HdxShadowTaskParams()
+      params.depthBiasEnable = true
+      params.depthBiasConstantFactor = depthBiasConstant
+      params.depthBiasSlopeFactor = depthBiasSlope
+      engine.setShadowParams(params)
+      shadowsEnabled = true
+    }
+
+    /// Disables shadow rendering.
+    public func disableShadows()
+    {
+      shadowsEnabled = false
     }
 
     public func calculateOriginAndSize()

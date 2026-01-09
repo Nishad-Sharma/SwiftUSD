@@ -31,6 +31,7 @@
 
 #include "Hdx/selectionTracker.h"
 #include "Hdx/renderSetupTask.h"
+#include "Hdx/shadowTask.h"
 
 #include "Hgi/hgi.h"
 
@@ -307,11 +308,29 @@ public:
     /// @}
 
     // ---------------------------------------------------------------------
+    /// \name Shadow API
+    /// @{
+    // ---------------------------------------------------------------------
+
+    /// Turns shadow rendering on or off.
+    /// When enabled, shadows are rendered for lights that have shadow:enable=true
+    /// in the UsdLux.ShadowAPI schema.
+    USDIMAGINGGL_API
+    void SetEnableShadows(bool enable);
+
+    /// Set shadow rendering parameters such as depth bias.
+    /// Note: These are global parameters that affect all shadow maps.
+    USDIMAGINGGL_API
+    void SetShadowParams(HdxShadowTaskParams const& params);
+
+    /// @}
+
+    // ---------------------------------------------------------------------
     /// \name Selection Highlighting
     /// @{
     // ---------------------------------------------------------------------
 
-    /// Sets (replaces) the list of prim paths that should be included in 
+    /// Sets (replaces) the list of prim paths that should be included in
     /// selection highlighting. These paths may include root paths which will 
     /// be expanded internally.
     USDIMAGINGGL_API

@@ -111,6 +111,20 @@
       SetLightingState(lights, material, sceneAmbient)
     }
 
+    /// Enables or disables shadow rendering.
+    /// When enabled, shadows are rendered for lights that have shadow:enable=true
+    /// in the UsdLux.ShadowAPI schema.
+    func setEnableShadows(_ enable: Bool)
+    {
+      SetEnableShadows(enable)
+    }
+
+    /// Set shadow rendering parameters such as depth bias.
+    func setShadowParams(_ params: Pixar.HdxShadowTaskParams)
+    {
+      SetShadowParams(params)
+    }
+
     func getAovTexture(_ aovName: Hd.AovTokens) -> Pixar.HgiTextureHandle
     {
       GetAovTexture(aovName.token)
@@ -152,6 +166,18 @@
     func setLightingState(lights: Pixar.GlfSimpleLightVector, material: Pixar.GlfSimpleMaterial, sceneAmbient: Pixar.GfVec4f)
     {
       pointee.setLightingState(lights: lights, material: material, sceneAmbient: sceneAmbient)
+    }
+
+    /// Enables or disables shadow rendering.
+    func setEnableShadows(_ enable: Bool)
+    {
+      pointee.setEnableShadows(enable)
+    }
+
+    /// Set shadow rendering parameters such as depth bias.
+    func setShadowParams(_ params: Pixar.HdxShadowTaskParams)
+    {
+      pointee.setShadowParams(params)
     }
 
     func getAovTexture(_ aovName: Hd.AovTokens) -> Pixar.HgiTextureHandle

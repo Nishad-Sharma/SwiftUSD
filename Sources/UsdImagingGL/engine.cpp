@@ -1100,6 +1100,46 @@ UsdImagingGLEngine::SetLightingState(
 }
 
 //----------------------------------------------------------------------------
+// Shadow API
+//----------------------------------------------------------------------------
+
+void
+UsdImagingGLEngine::SetEnableShadows(bool enable)
+{
+    if (ARCH_UNLIKELY(!_HasRenderer())) {
+        return;
+    }
+
+    TF_PY_ALLOW_THREADS_IN_SCOPE();
+
+    if (_taskControllerSceneIndex) {
+        _taskControllerSceneIndex->SetEnableShadows(enable);
+    } else if (_taskController) {
+        _taskController->SetEnableShadows(enable);
+    } else {
+        TF_CODING_ERROR("No task controller or task controller scene index.");
+    }
+}
+
+void
+UsdImagingGLEngine::SetShadowParams(HdxShadowTaskParams const& params)
+{
+    if (ARCH_UNLIKELY(!_HasRenderer())) {
+        return;
+    }
+
+    TF_PY_ALLOW_THREADS_IN_SCOPE();
+
+    if (_taskControllerSceneIndex) {
+        _taskControllerSceneIndex->SetShadowParams(params);
+    } else if (_taskController) {
+        _taskController->SetShadowParams(params);
+    } else {
+        TF_CODING_ERROR("No task controller or task controller scene index.");
+    }
+}
+
+//----------------------------------------------------------------------------
 // Selection Highlighting
 //----------------------------------------------------------------------------
 
