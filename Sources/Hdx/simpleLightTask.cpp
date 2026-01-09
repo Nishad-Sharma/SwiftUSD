@@ -268,16 +268,30 @@ HdxSimpleLightTask::Sync(HdSceneDelegate* delegate,
                 glfl.SetIsCameraSpaceLight(false);
             }
 
-            const VtValue vLightShadowParams = 
+            const VtValue vLightShadowParams =
                 light->Get(HdLightTokens->shadowParams);
-            const HdxShadowParams lightShadowParams = 
+            HdxShadowParams lightShadowParams =
                 vLightShadowParams.GetWithDefault<HdxShadowParams>
                     (HdxShadowParams());
+
+            // If shadowParams wasn't explicitly set, check for shadow:enable
+            // attribute directly (for USD lights with ShadowAPI applied)
+            if (!vLightShadowParams.IsHolding<HdxShadowParams>()) {
+                const VtValue vShadowEnable =
+                    light->Get(HdLightTokens->shadowEnable);
+                if (vShadowEnable.IsHolding<bool>()) {
+                    lightShadowParams.enabled = vShadowEnable.UncheckedGet<bool>();
+                    // Set reasonable defaults for shadow quality
+                    lightShadowParams.resolution = 2048;
+                    lightShadowParams.bias = 0.001;
+                    lightShadowParams.blur = 0.0;
+                }
+            }
 
             // If shadows are disabled from the rendergraph then
             // we treat this light as if it had the shadow disabled
             // doing so we guarantee that shadowIndex will be -1
-            // which will not create memory for the shadow maps 
+            // which will not create memory for the shadow maps
             if (!_enableShadows || !lightShadowParams.enabled) {
                 glfl.SetHasShadow(false);
             }
