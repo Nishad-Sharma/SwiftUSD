@@ -340,7 +340,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/stackotter/swift-cross-ui", branch: "main"),
         .package(url: "https://github.com/AthemIO/SwiftASWF", branch: "main"),
-        .package(url: "https://github.com/swiftlang/swift-syntax.git", from: "600.0.1"),
+        .package(url: "https://github.com/swiftlang/swift-syntax.git", from: "601.0.0"),
         .package(url: "https://github.com/swiftlang/swift-docc-plugin", from: "1.4.3"),
         .package(url: "https://github.com/apple/swift-log.git", from: "1.5.3"),
         .package(url: "https://github.com/apple/swift-argument-parser", from: "1.4.0"),
